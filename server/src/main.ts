@@ -2,12 +2,14 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { UnauthorizedFilter } from './exceptions/filters/UnauthorizedFilter';
 import { ValidationPipe } from '@nestjs/common';
+import { NotFoundFilter } from './exceptions/filters/NotFoundFilter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.useGlobalFilters(
-    new UnauthorizedFilter()
+    new UnauthorizedFilter(),
+    new NotFoundFilter()
   );
 
   app.useGlobalPipes(new ValidationPipe({ errorHttpStatusCode: 422 }))

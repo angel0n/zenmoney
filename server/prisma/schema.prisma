@@ -8,98 +8,85 @@ datasource db {
 }
 
 model User {
-  id           Int      @id @default(autoincrement())
-  email        String   @unique
+  id           Int           @id @default(autoincrement())
+  email        String        @unique
   name         String
-  passwordHash String   @map("password_hash")
-  createdAt    DateTime @default(now()) @map("created_at")
-  updatedAt    DateTime @updatedAt @map("updated_at")
-
-  wallets      Wallet[]
-  transactions Transaction[]
+  passwordHash String        @map("password_hash")
+  createdAt    DateTime      @default(now()) @map("created_at")
+  updatedAt    DateTime      @updatedAt @map("updated_at")
   goals        Goal[]
+  transactions Transaction[]
+  wallets      Wallet[]
 
   @@map("users")
 }
 
 model Currency {
-  id            Int      @id @default(autoincrement())
-  code          String   @unique
-  name          String
-  symbol        String
-  decimalPlaces Int      @default(2) @map("decimal_places")
-  isActive      Boolean  @default(true) @map("is_active")
-  createdAt     DateTime @default(now()) @map("created_at")
-  updatedAt     DateTime @updatedAt @map("updated_at")
-
-  wallets           Wallet[]
-  transactions      Transaction[]
-  goals             Goal[]
+  id                Int            @id @default(autoincrement())
+  code              String         @unique
+  name              String
+  symbol            String
+  decimalPlaces     Int            @default(2) @map("decimal_places")
+  isActive          Boolean        @default(true) @map("is_active")
+  createdAt         DateTime       @default(now()) @map("created_at")
+  updatedAt         DateTime       @updatedAt @map("updated_at")
   exchangeRatesFrom ExchangeRate[] @relation("FromCurrency")
   exchangeRatesTo   ExchangeRate[] @relation("ToCurrency")
+  goals             Goal[]
+  transactions      Transaction[]
+  wallets           Wallet[]
 
   @@map("currencies")
 }
 
 model Wallet {
-  id         Int      @id @default(autoincrement())
-  userId     Int      @map("user_id")
-  currencyId Int      @map("currency_id")
-  balance    Decimal  @default(0) @db.Decimal(18, 8)
-  name       String?
-  createdAt  DateTime @default(now()) @map("created_at")
-  updatedAt  DateTime @updatedAt @map("updated_at")
-
-  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  currency Currency @relation(fields: [currencyId], references: [id])
-
+  id               Int           @id @default(autoincrement())
+  userId           Int           @map("user_id")
+  currencyId       Int           @map("currency_id")
+  balance          Decimal       @default(0) @db.Decimal(18, 8)
+  name             String?
+  createdAt        DateTime      @default(now()) @map("created_at")
+  updatedAt        DateTime      @updatedAt @map("updated_at")
   transactionsFrom Transaction[] @relation("FromWallet")
   transactionsTo   Transaction[] @relation("ToWallet")
+  currency         Currency      @relation(fields: [currencyId], references: [id])
+  user             User          @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, currencyId])
   @@map("wallets")
 }
 
 model TransactionCategory {
-  id        Int             @id @default(autoincrement())
-  name      String
-  icon      String?
-  color     String?
-  type      TransactionType
-  createdAt DateTime        @default(now()) @map("created_at")
-
+  id           Int             @id @default(autoincrement())
+  name         String
+  icon         String?
+  color        String?
+  type         TransactionType
+  createdAt    DateTime        @default(now()) @map("created_at")
   transactions Transaction[]
 
   @@map("transaction_categories")
 }
 
-enum TransactionType {
-  INCOME
-  EXPENSE
-  TRANSFER
-}
-
 model Transaction {
-  id              Int             @id @default(autoincrement())
-  userId          Int             @map("user_id")
+  id              Int                  @id @default(autoincrement())
+  userId          Int                  @map("user_id")
   type            TransactionType
-  amount          Decimal         @db.Decimal(18, 8)
-  currencyId      Int             @map("currency_id")
-  categoryId      Int?            @map("category_id")
+  amount          Decimal              @db.Decimal(18, 8)
+  currencyId      Int                  @map("currency_id")
+  categoryId      Int?                 @map("category_id")
   description     String
-  transactionDate DateTime        @map("transaction_date")
-  createdAt       DateTime        @default(now()) @map("created_at")
-
-  fromWalletId    Int?     @map("from_wallet_id")
-  toWalletId      Int?     @map("to_wallet_id")
-  exchangeRate    Decimal? @map("exchange_rate") @db.Decimal(18, 8)
-  convertedAmount Decimal? @map("converted_amount") @db.Decimal(18, 8)
-
-  user       User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
-  currency   Currency             @relation(fields: [currencyId], references: [id])
-  category   TransactionCategory? @relation(fields: [categoryId], references: [id])
-  fromWallet Wallet?              @relation("FromWallet", fields: [fromWalletId], references: [id])
-  toWallet   Wallet?              @relation("ToWallet", fields: [toWalletId], references: [id])
+  transactionDate DateTime             @map("transaction_date")
+  createdAt       DateTime             @default(now()) @map("created_at")
+  fromWalletId    Int?                 @map("from_wallet_id")
+  toWalletId      Int?                 @map("to_wallet_id")
+  exchangeRate    Decimal?             @map("exchange_rate") @db.Decimal(18, 8)
+  convertedAmount Decimal?             @map("converted_amount") @db.Decimal(18, 8)
+  category        TransactionCategory? @relation(fields: [categoryId], references: [id])
+  currency        Currency             @relation(fields: [currencyId], references: [id])
+  fromWallet      Wallet?              @relation("FromWallet", fields: [fromWalletId], references: [id])
+  toWallet        Wallet?              @relation("ToWallet", fields: [toWalletId], references: [id])
+  user            User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId, transactionDate])
   @@map("transactions")
@@ -113,9 +100,8 @@ model ExchangeRate {
   date           DateTime @default(now())
   source         String   @default("API")
   createdAt      DateTime @default(now()) @map("created_at")
-
-  fromCurrency Currency @relation("FromCurrency", fields: [fromCurrencyId], references: [id])
-  toCurrency   Currency @relation("ToCurrency", fields: [toCurrencyId], references: [id])
+  fromCurrency   Currency @relation("FromCurrency", fields: [fromCurrencyId], references: [id])
+  toCurrency     Currency @relation("ToCurrency", fields: [toCurrencyId], references: [id])
 
   @@unique([fromCurrencyId, toCurrencyId, date])
   @@index([fromCurrencyId, toCurrencyId])
@@ -134,9 +120,14 @@ model Goal {
   isCompleted   Boolean  @default(false) @map("is_completed")
   createdAt     DateTime @default(now()) @map("created_at")
   updatedAt     DateTime @updatedAt @map("updated_at")
-
-  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  currency Currency @relation(fields: [currencyId], references: [id])
+  currency      Currency @relation(fields: [currencyId], references: [id])
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("goals")
+}
+
+enum TransactionType {
+  INCOME
+  EXPENSE
+  TRANSFER
 }
