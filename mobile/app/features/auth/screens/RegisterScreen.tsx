@@ -5,6 +5,7 @@ import { TypeTheme } from "@/theme/typeTheme";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { StyleSheet, Text, View } from "react-native";
 import { useRegister } from "../hooks/UserRegister";
+import { KeyboardContainer } from "@/shared/components/containers/KeyboardContainer";
 
 type Props = NativeStackScreenProps<any>;
 
@@ -14,50 +15,52 @@ export default function RegisterScreen({ navigation }: Props) {
   const { state, setState, submit } = useRegister();
 
   return (
-    <View style={styles.container}>
-      <View style={styles.card}>
-        <InputText
-          label="E-mail"
-          value={state.email}
-          onChangeText={email => setState(prev => ({ ...prev, email }))}
-          placeholder="email@gmail.com"
-        />
+    <KeyboardContainer >
+        <View style={styles.container}>
+          <View style={styles.card}>
+            <InputText
+              label="E-mail"
+              value={state.email}
+              onChangeText={email => setState(prev => ({ ...prev, email }))}
+              placeholder="email@gmail.com"
+            />
 
-        <InputText
-          label="Nome"
-          value={state.nome}
-          onChangeText={nome => setState(prev => ({ ...prev, nome }))}
-          placeholder="Seu nome"
-        />
+            <InputText
+              label="Nome"
+              value={state.nome}
+              onChangeText={nome => setState(prev => ({ ...prev, nome }))}
+              placeholder="Seu nome"
+            />
 
-        <InputText
-          label="Senha"
-          secureTextEntry
-          value={state.senha}
-          onChangeText={senha => setState(prev => ({ ...prev, senha }))}
-          placeholder="******"
-        />
+            <InputText
+              label="Senha"
+              secureTextEntry
+              value={state.senha}
+              onChangeText={senha => setState(prev => ({ ...prev, senha }))}
+              placeholder="******"
+            />
 
-        <InputText
-          label="Confirme a senha"
-          secureTextEntry
-          value={state.confirmeSenha}
-          onChangeText={confirmeSenha => setState(prev => ({ ...prev, confirmeSenha }))}
-          placeholder="******"
-        />
+            <InputText
+              label="Confirme a senha"
+              secureTextEntry
+              value={state.confirmeSenha}
+              onChangeText={confirmeSenha => setState(prev => ({ ...prev, confirmeSenha }))}
+              placeholder="******"
+            />
 
-        <Button
-          title="Registrar"
-          loading={state.loading}
-          onPress={() => submit(() => navigation.replace('Login'))}
-        />
+            <Button
+              title="Registrar"
+              loading={state.loading}
+              onPress={() => submit(() => navigation.replace('Login'))}
+            />
 
-        {state.error && (
-          <Text style={styles.mensageError}>{state.error}</Text>
-        )}
-        <Text style={styles.label} onPress={() => navigation.navigate('Login')} >Voltar para o Login</Text>
-      </View>
-    </View>
+            {state.error && (
+              <Text style={styles.mensageError}>{state.error}</Text>
+            )}
+            <Text style={styles.label} onPress={() => navigation.navigate('Login')} >Voltar para o Login</Text>
+          </View>
+        </View>
+      </KeyboardContainer>
   );
 }
 
@@ -69,6 +72,7 @@ function createStyles(theme: TypeTheme) {
       justifyContent: 'center',
       alignItems: 'center',
       backgroundColor: theme.colors.background,
+      paddingVertical: 20,
     },
     card: {
       width: '80%',

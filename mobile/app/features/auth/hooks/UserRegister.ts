@@ -46,10 +46,10 @@ export function useRegister() {
       });
 
       onSuccess();
-    } catch {
+    } catch(error: any) {      
       setState(prev => ({
         ...prev,
-        error: 'Não foi possível registrar o usuário',
+        error: error.response.data.message,
       }));
     } finally {
       setState(prev => ({ ...prev, loading: false }));

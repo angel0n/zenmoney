@@ -8,6 +8,7 @@ import { Button } from '@/shared/components/buttons/Button';
 import { useState } from 'react';
 import { LoginState } from '../types/TypeState';
 import { loginUser } from '../services/AuthServices';
+import { KeyboardContainer } from '@/shared/components/containers/KeyboardContainer';
 
 type Props = NativeStackScreenProps<any>;
 
@@ -43,16 +44,17 @@ export default function LoginScreen({ navigation }: Props) {
   }
 
   return (
-    <View style={styles.container} >
-      <View style={styles.cardLogin} >
-        <InputText onChangeText={(value) => setState({ ...state, email: value })} value={state.email} label='Login' placeholder='Login' />
-        <InputText onChangeText={(value) => setState({ ...state, password: value })} value={state.password} label='Senha' placeholder='Senha' secureTextEntry={true} />
-        <Button title="Entrar" onPress={handleLogin} loading={state.loading} />
-        {state.error && <Text style={styles.mensageError} >{state.error}</Text>}
-        <Text style={styles.label} onPress={() => navigation.navigate('Register')} >Não possui conta? Cadastre-se</Text>
+    <KeyboardContainer >
+      <View style={styles.container} >
+        <View style={styles.cardLogin} >
+          <InputText onChangeText={(value) => setState({ ...state, email: value })} value={state.email} label='Login' placeholder='Login' />
+          <InputText onChangeText={(value) => setState({ ...state, password: value })} value={state.password} label='Senha' placeholder='Senha' secureTextEntry={true} />
+          <Button title="Entrar" onPress={handleLogin} loading={state.loading} />
+          {state.error && <Text style={styles.mensageError} >{state.error}</Text>}
+          <Text style={styles.label} onPress={() => navigation.navigate('Register')} >Não possui conta? Cadastre-se</Text>
+        </View>
       </View>
-
-    </View>
+    </KeyboardContainer>
   );
 }
 
@@ -63,6 +65,7 @@ function createStyles(theme: TypeTheme) {
       justifyContent: 'center',
       alignItems: 'center',
       backgroundColor: theme.colors.background,
+      paddingVertical: 20,
     },
     cardLogin: {
       width: '80%',
