@@ -1,6 +1,8 @@
 export type TypeTheme = {
     colors: {
         background: string,
+        backgroundSecondary: string,
+        
         surface: string,
 
         primary: string,

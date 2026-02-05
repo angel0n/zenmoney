@@ -45,7 +45,7 @@ export class UsersService {
     if(!validPassword) throw new UnauthorizedException('Invalid password.');
 
     const token = await this.authService.createToken(user);
-    return { token };
+    return { id: user.id, name: user.name, email: user.email, token };
   }
 
   private async findUserByEmail(email: string) {

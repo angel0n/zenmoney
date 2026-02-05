@@ -4,6 +4,7 @@ export const lightTheme: TypeTheme = {
   colors: {
     // Fundo geral (cinza azulado claro)
     background: '#F4F6FB',
+    backgroundSecondary: '#E9ECF5',
 
     // Cards / superfícies
     surface: '#FFFFFF',

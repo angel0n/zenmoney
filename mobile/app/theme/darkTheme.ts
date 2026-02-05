@@ -4,6 +4,7 @@ export const darkTheme: TypeTheme = {
   colors: {
     // Fundo principal (azul bem escuro)
     background: '#0B0F2A',
+    backgroundSecondary: '#12163D',
 
     // Cards, listas, superfícies
     surface: '#161A3F',

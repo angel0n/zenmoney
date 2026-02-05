@@ -30,8 +30,8 @@ export default function LoginScreen({ navigation }: Props) {
     try {
       setState(prev => ({ ...prev, loading: true, error: null }));
       const newUser = await loginUser(state.email, state.password);
+      
       if (!newUser?.token) {
-        console.log("Falha");
         setState(prev => ({ ...prev, loading: false, error: 'Não foi possível realizar o login. Verifique suas credenciais.' }));
         return;
       }

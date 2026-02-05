@@ -1,15 +1,16 @@
+import { Header } from "@/shared/components/header/Header";
 import { useTheme } from "@/theme/ThemeContext";
 import { StyleSheet, Text, View } from "react-native";
 
 
 
-export default function HomeScreen() {
+export default function CarteiraTab() {
   const { theme } = useTheme();
   const styles = createStyles(theme);
   
   return (
     <View style={styles.container}>
-      <Text style={{color: theme.colors.text}}>Teste</Text>
+      <Header title="Carteiras" />
     </View>
   )
 }

@@ -4,7 +4,8 @@ import { AuthModule } from './features/auth/auth.module';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from './features/auth/auth.guard';
 import { UsersModule } from './features/users/users.module';
-import { PrismaModule } from './database/prisma.module';
+import { CurrencysModule } from './features/currencys/currencys.module';
+import { WalletsModule } from './features/wallets/wallets.module';
 
 
 @Module({
@@ -14,6 +15,8 @@ import { PrismaModule } from './database/prisma.module';
     }),
     AuthModule,
     UsersModule,
+    CurrencysModule,
+    WalletsModule,
   ],
   controllers: [],
   providers: [
