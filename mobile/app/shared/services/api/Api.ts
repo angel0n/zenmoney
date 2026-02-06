@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { getUser, removeUser } from '../storage/AuthStorage';
-import { replace } from '../../navigation/NavigationRef';
+import { replace } from '../../../navigation/NavigationRef';
 
 
 export const api = axios.create({
@@ -27,6 +27,8 @@ api.interceptors.response.use(
   (response) => response,
 
   async (error) => {
+    console.log(error);
+    
     const status = error?.response?.status;    
     if (status === 401) {
       await removeUser();
@@ -34,6 +36,6 @@ api.interceptors.response.use(
       return Promise.reject(error);
     }
 
-    return Promise.reject(error);
+    return Promise.reject(error.response.data);
   }
 );

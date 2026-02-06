@@ -10,4 +10,9 @@ export class CurrencysController {
   create(@Body() createCurrencyDto: CreateCurrencyDto) {
     return this.currencysService.create(createCurrencyDto);
   }
+
+  @Get()
+  findAllActive(){
+    return this.currencysService.findAllActive()
+  }
 }

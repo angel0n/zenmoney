@@ -2,12 +2,14 @@ import { Injectable } from '@nestjs/common';
 import { CreateCurrencyDto } from './dto/create-currency.dto';
 import { PrismaService } from 'src/database/prisma.service';
 import { ConflictException } from 'src/exceptions/ConflictException';
+import { NotFoundException } from 'src/exceptions/NotFoundException';
 
 @Injectable()
 export class CurrencysService {
   constructor(
     private readonly prisma: PrismaService
   ) { }
+
   async create(createCurrencyDto: CreateCurrencyDto) {
     createCurrencyDto.code = createCurrencyDto.code.toLowerCase()
     const currency = await this.prisma.currency.findUnique({ where: { code: createCurrencyDto.code } })
@@ -16,5 +18,9 @@ export class CurrencysService {
     await this.prisma.currency.create({
       data: createCurrencyDto
     })
+  }
+
+  async findAllActive() {
+    return await this.prisma.currency.findMany({ where: { isActive: true } })
   }
 }

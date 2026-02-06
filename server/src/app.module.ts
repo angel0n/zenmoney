@@ -6,12 +6,18 @@ import { AuthGuard } from './features/auth/auth.guard';
 import { UsersModule } from './features/users/users.module';
 import { CurrencysModule } from './features/currencys/currencys.module';
 import { WalletsModule } from './features/wallets/wallets.module';
+import { CacheModule } from '@nestjs/cache-manager';
 
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
+    }),
+    CacheModule.register({
+      isGlobal: true,
+      ttl: (60 * 60) * 2,
+      max: 100, 
     }),
     AuthModule,
     UsersModule,

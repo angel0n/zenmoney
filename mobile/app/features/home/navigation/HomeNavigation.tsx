@@ -1,9 +1,10 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import TransferenciaTab from "../screens/TransferenciaTab";
-import {HomeTab} from "../screens/HomeTab";
+import { HomeTab } from "../screens/HomeTab";
 import CarteiraTab from "../screens/CarteiraTab";
 import { useTheme } from "@/theme/ThemeContext";
 import { LinearGradient } from "expo-linear-gradient";
+import { Ionicons } from '@expo/vector-icons';
 
 const Tab = createBottomTabNavigator();
 
@@ -11,8 +12,8 @@ export function HomeNavigation() {
     const { theme } = useTheme();
     return (
         <Tab.Navigator
-            initialRouteName="Home"
-            screenOptions={{
+            initialRouteName="Carteiras"
+            screenOptions={({ route }) => ({
                 headerShown: false,
                 tabBarStyle: {
                     borderTopWidth: 0
@@ -28,18 +29,33 @@ export function HomeNavigation() {
                         style={{ flex: 1 }}
                     />
                 ),
-            }}
+                tabBarIcon: ({ color, size }) => {
+                    let iconName = "";
+
+                    if (route.name === 'Carteiras') {
+                        iconName = 'home';
+                    } else if (route.name === 'Transferencia') {
+                        iconName = 'person';
+                    } else if (route.name === 'Metas') {
+                        iconName = 'flag';
+                    }
+
+                    return (
+                        <Ionicons name={iconName} size={size} color={color} />
+                    );
+                }
+            })}
         >
             <Tab.Screen
                 name="Transferencia"
                 component={TransferenciaTab}
             />
             <Tab.Screen
-                name="Home"
+                name="Carteiras"
                 component={HomeTab}
             />
             <Tab.Screen
-                name="Carteira"
+                name="Metas"
                 component={CarteiraTab}
             />
         </Tab.Navigator >

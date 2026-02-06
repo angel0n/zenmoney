@@ -1,4 +1,4 @@
-import { api } from '@/services/api/Api';
+import { api } from '@/shared/services/api/Api';
 import { UserEntity } from '@/shared/entity/UserEntity';
 
 type RegisterPayload = {

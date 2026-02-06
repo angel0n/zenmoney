@@ -12,4 +12,14 @@ export class WalletsController {
   create(@Body() createWalletDto: CreateWalletDto, @CurrentUser() user: PayloadDto) {
     return this.walletsService.create(createWalletDto, user);
   }
+
+  @Get()
+  findAllByUser(@CurrentUser() user: PayloadDto) {
+    return this.walletsService.findAllByUser(user);
+  }
+
+  @Get('total/:targetCurrencyId')
+  getWalletTotal(@CurrentUser() user: PayloadDto, @Param('targetCurrencyId') targetCurrencyId: number) {
+    return this.walletsService.getWalletTotal(user, Number(targetCurrencyId));
+  }
 }

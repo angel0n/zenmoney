@@ -7,7 +7,7 @@ import { StyleSheet, Text, View } from "react-native";
 export default function CarteiraTab() {
   const { theme } = useTheme();
   const styles = createStyles(theme);
-  
+
   return (
     <View style={styles.container}>
       <Header title="Carteiras" />
@@ -17,9 +17,9 @@ export default function CarteiraTab() {
 
 function createStyles(theme: any) {
   return StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: theme.colors.background,
-  },
-})
+    container: {
+      flex: 1,
+      backgroundColor: theme.colors.background,
+    },
+  })
 }

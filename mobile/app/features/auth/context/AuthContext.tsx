@@ -1,5 +1,5 @@
-import { api } from '@/services/api/Api';
-import { getUser, removeUser, saveUser } from '@/services/storage/AuthStorage';
+import { api } from '@/shared/services/api/Api';
+import { getUser, removeUser, saveUser } from '@/shared/services/storage/AuthStorage';
 import { UserEntity } from '@/shared/entity/UserEntity';
 import { createContext, useContext, useState } from 'react';
 
