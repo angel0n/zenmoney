@@ -17,7 +17,7 @@ export function InputNumber({ label, value, onChangeText, placeholder, error, se
     const styles = createStyles(theme);
 
     function handleChange(text: string) {
-        const onlyNumbers = text.replace(/[^0-9]/g, '');
+        const onlyNumbers = text.replace(/[^0-9.,]/g, '').replace(/([.,].*)[.,]/g, '$1');;
         onChangeText(onlyNumbers);
     }
 

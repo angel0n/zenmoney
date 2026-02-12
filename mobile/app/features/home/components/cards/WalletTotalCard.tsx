@@ -62,7 +62,7 @@ function createStyles(theme: TypeTheme) {
         },
         totalLabel: {
             fontSize: 16,
-            color: '#fff',
+            color: theme.colors.text,
             opacity: 0.9,
             marginBottom: 8,
         },
@@ -70,7 +70,7 @@ function createStyles(theme: TypeTheme) {
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'space-between',
-            backgroundColor: 'rgba(255, 255, 255, 0.2)',
+            backgroundColor: theme.colors.background,
             paddingHorizontal: 16,
             paddingVertical: 10,
             borderRadius: 12,

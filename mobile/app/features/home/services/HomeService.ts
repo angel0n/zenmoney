@@ -15,3 +15,15 @@ export async function getAllCurrencyApi(){
     const response = await api.get("/currencys");
     return response.data
 }
+
+export async function getAllTransferenciaCategoryApi(){
+    const response = await api.get("/categorys");
+    return response.data
+}
+
+export async function saveTransaction(body: any){
+    const response = await api.post("/transaction",body)
+    console.log(response.data);
+    
+    return response.data
+}

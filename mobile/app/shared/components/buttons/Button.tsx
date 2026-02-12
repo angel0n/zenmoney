@@ -7,6 +7,7 @@ type ButtonProps = {
     title: string;
     onPress: () => void;
     loading?: boolean;
+    error?: boolean;
     disabled?: boolean;
 };
 
@@ -14,6 +15,7 @@ export function Button({
     title,
     onPress,
     loading = false,
+    error = false,
     disabled = false,
 }: ButtonProps) {
     const {theme} = useTheme();
@@ -23,7 +25,7 @@ export function Button({
 
     return (
         <TouchableOpacity
-            style={[styles.container, isDisabled && styles.disabled]}
+            style={[styles.container, isDisabled && styles.disabled, error && styles.error]}
             onPress={onPress}
             activeOpacity={0.8}
             disabled={isDisabled}
@@ -54,6 +56,9 @@ export function createStyles(theme: TypeTheme) {
         disabled: {
             opacity: 0.6,
         },
+        error: {
+            backgroundColor: theme.colors.error,
+        }
     });
 }
 

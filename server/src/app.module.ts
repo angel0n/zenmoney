@@ -7,6 +7,8 @@ import { UsersModule } from './features/users/users.module';
 import { CurrencysModule } from './features/currencys/currencys.module';
 import { WalletsModule } from './features/wallets/wallets.module';
 import { CacheModule } from '@nestjs/cache-manager';
+import { CategorysModule } from './features/categorys/categorys.module';
+import { TransactionModule } from './features/transaction/transaction.module';
 
 
 @Module({
@@ -23,6 +25,8 @@ import { CacheModule } from '@nestjs/cache-manager';
     UsersModule,
     CurrencysModule,
     WalletsModule,
+    CategorysModule,
+    TransactionModule,
   ],
   controllers: [],
   providers: [

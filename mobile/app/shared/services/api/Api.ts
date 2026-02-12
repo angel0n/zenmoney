@@ -34,8 +34,9 @@ api.interceptors.response.use(
       await removeUser();
       replace('Login');
       return Promise.reject(error);
-    }
-
+    }else if(status === 422){
+      return Promise.reject({message: error.response.data.message.join("\n")});
+    }    
     return Promise.reject(error.response.data);
   }
 );

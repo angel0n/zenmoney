@@ -68,7 +68,7 @@ export function useHomeTab() {
         setState(prev => ({ ...prev, loading: true }));
         try {
             const currencies = await getAllCurrencyApi()
-            setState(prev => ({ ...prev, currencies, loading: false }));
+            setState(prev => ({ ...prev, currencies, targetCurrency: currencies[0], loading: false }));
         } catch (error:any) {            
             setState(prev => ({ ...prev, loading: false, error: error.message }));
         }

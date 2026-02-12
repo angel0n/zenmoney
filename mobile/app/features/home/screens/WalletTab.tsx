@@ -1,5 +1,5 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import { useHomeTab } from "../hooks/HomeTabHook";
+import { useHomeTab } from "../hooks/WalletTabHook";
 import { useEffect } from "react";
 import { useTheme } from "@/theme/ThemeContext";
 import { TypeTheme } from "@/theme/typeTheme";
@@ -9,7 +9,7 @@ import { WalletTotalCard } from "../components/cards/WalletTotalCard";
 import { CurrencyModal } from "../components/modal/CurrencyModal";
 import { WalletCard } from "../components/cards/WalletCard";
 
-export function HomeTab() {
+export function WalletTab() {
   const { theme } = useTheme();
   const styles = createStyles(theme)
   const { state, init, setModalVisible, setTargetCurrency, getTotalWalletBalance } = useHomeTab();

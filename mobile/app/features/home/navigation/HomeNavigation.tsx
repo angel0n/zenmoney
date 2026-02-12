@@ -1,7 +1,7 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import TransferenciaTab from "../screens/TransferenciaTab";
-import { HomeTab } from "../screens/HomeTab";
-import CarteiraTab from "../screens/CarteiraTab";
+import { WalletTab } from "../screens/WalletTab";
+import CarteiraTab from "../screens/GoalTab";
 import { useTheme } from "@/theme/ThemeContext";
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from '@expo/vector-icons';
@@ -30,14 +30,14 @@ export function HomeNavigation() {
                     />
                 ),
                 tabBarIcon: ({ color, size }) => {
-                    let iconName = "";
+                    let iconName:any = "";
 
                     if (route.name === 'Carteiras') {
-                        iconName = 'home';
+                        iconName = 'wallet';
                     } else if (route.name === 'Transferencia') {
-                        iconName = 'person';
+                        iconName = 'swap-horizontal';
                     } else if (route.name === 'Metas') {
-                        iconName = 'flag';
+                        iconName = 'trophy-outline';
                     }
 
                     return (
@@ -52,7 +52,7 @@ export function HomeNavigation() {
             />
             <Tab.Screen
                 name="Carteiras"
-                component={HomeTab}
+                component={WalletTab}
             />
             <Tab.Screen
                 name="Metas"
